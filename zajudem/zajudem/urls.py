@@ -21,6 +21,7 @@ from apps.users.views import Login, Logout
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('apps.users.urls')),
+    path('fichas/', include('apps.fichas.urls')), # URL para las fichas
     path('', Login.as_view(), name='login'), # URL para pruebas de inicio de sesión
     path('logout/', Logout.as_view(), name='logout'), # URL para pruebas de cerrar sesión
 ]
