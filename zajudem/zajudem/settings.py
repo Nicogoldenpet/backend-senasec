@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.users', #Agrego la aplicación users
     'apps.fichas', #Agrego la aplicación fichas
+    'apps.aulas', #Agrego la aplicación aulas
     'rest_framework', #Agrego la aplicación rest_framework
     'rest_framework.authtoken', #Agrego la aplicación rest_framework.authtoken para autenticación
     'rest_framework_simplejwt', #Agrego la aplicación rest_framework_simplejwt para autenticación

@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Ficha
 
-# Register your models here.
+
+# Registrar el modelo Ficha en el panel de administración
+admin.site.register(Ficha)
