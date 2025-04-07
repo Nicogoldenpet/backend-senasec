@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'apps.aulas', #Agrego la aplicación aulas
     'apps.inventario', #Agrego la aplicación inventario
     'apps.programacion', #Agrego la aplicación programacion
+    'apps.reportes', #Agrego la aplicación reportes
     'rest_framework', #Agrego la aplicación rest_framework
     'rest_framework.authtoken', #Agrego la aplicación rest_framework.authtoken para autenticación
     'rest_framework_simplejwt', #Agrego la aplicación rest_framework_simplejwt para autenticación
