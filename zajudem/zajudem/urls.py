@@ -23,6 +23,7 @@ urlpatterns = [
     path('users/', include('apps.users.urls')),
     path('fichas/', include('apps.fichas.urls')), # URL para las fichas
     path('aulas/', include('apps.aulas.urls')), # URL para las aulas
+    path('inventario/', include('apps.inventario.urls')), # URL para el inventario
     path('', Login.as_view(), name='login'), # URL para pruebas de inicio de sesión
     path('logout/', Logout.as_view(), name='logout'), # URL para pruebas de cerrar sesión
 ]
