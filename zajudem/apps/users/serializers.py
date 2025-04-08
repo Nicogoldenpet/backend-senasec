@@ -4,7 +4,7 @@ from .models import Usuario
 class UsuarioSerializer(serializers.ModelSerializer): # Creando un serializador para el modelo Usuario
     class Meta:
         model = Usuario
-        fields = ('id', 'username', 'email', 'telefono', 'first_name', 'last_name', 'password', 'rol', 'is_active', 'fecha_registro')
+        fields = ('id', 'username', 'email', 'telefono', 'password', 'rol', 'is_active', 'fecha_registro')
         extra_kwargs = {
             'password': {'write_only': True},  # Para que la contraseña no sea visible en la API
             'rol': {'read_only': True},  # No permitir que se establezca un rol directamente

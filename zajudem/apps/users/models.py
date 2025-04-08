@@ -25,6 +25,10 @@ class Usuario(AbstractUser):
     # Campo de fecha de registro
     fecha_registro = models.DateTimeField(auto_now=True) # Fecha de registro automática
 
+    # Sobrescribir los campos heredados para eliminarlos
+    first_name = None
+    last_name = None
+
     # Método save para establecer el rol predeterminado al crear un nuevo usuario
     def save(self, *args, **kwargs):
         if not self.pk:
