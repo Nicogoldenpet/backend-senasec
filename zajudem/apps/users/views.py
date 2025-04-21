@@ -4,6 +4,7 @@ from rest_framework import generics, viewsets, permissions
 from .models import Usuario
 from .serializers import UsuarioSerializer, CustomTokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+from permissions.permissions import IsAdminUser
 
 # Vista para Ver el Perfil del Usuario Autenticado
 class ProfileView(APIView):  # Hereda de APIView para definir una vista más personalizada
@@ -34,6 +35,7 @@ class UsuarioCreateView(generics.CreateAPIView): # Vista para crear un usuario
 class UsuarioViewSet(viewsets.ModelViewSet): # Vista para ver todos los usuarios
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
+    permission_classes = [IsAdminUser]
 
 class Login(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
