@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from apps.users.views import Login, Logout
+from apps.users.views import Login
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,6 +26,6 @@ urlpatterns = [
     path('inventario/', include('apps.inventario.urls')), # URL para el inventario
     path('programacion/', include('apps.programacion.urls')), # URL para la programación
     path('reporte/', include('apps.reportes.urls')), # URL para los reportes
-    path('', Login.as_view(), name='login'), # URL para pruebas de inicio de sesión
-    path('logout/', Logout.as_view(), name='logout'), # URL para pruebas de cerrar sesión
+    path('login/', Login.as_view(), name='login'), # URL para pruebas de inicio de sesión
+    #path('logout/', Logout.as_view(), name='logout'), # URL para pruebas de cerrar sesión
 ]

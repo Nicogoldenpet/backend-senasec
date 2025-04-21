@@ -4,14 +4,14 @@ from django.db import models
 class Usuario(AbstractUser):
     # Definición de las opciones de rol
     ROL_CHOICES = [
-        ('admin', 'Administrador'),
+        ('administrador', 'Administrador'),
         ('instructor', 'Instructor'),
-        ('seguridad', 'Guardia'),
-        ('aseo', 'Limpieza'),
+        ('guardia', 'Guardia'),
+        ('limpieza', 'Limpieza'),
     ]
     
     # Campo para almacenar el rol del usuario
-    rol = models.CharField(max_length=10, choices=ROL_CHOICES, default='instructor') # user por default
+    rol = models.CharField(max_length=20, choices=ROL_CHOICES, default='instructor') # user por default
     
     # Campo de correo electrónico único
     email = models.EmailField(unique=True)
@@ -25,12 +25,8 @@ class Usuario(AbstractUser):
     # Campo de fecha de registro
     fecha_registro = models.DateTimeField(auto_now=True) # Fecha de registro automática
 
-    # Sobrescribir los campos heredados para eliminarlos
-    first_name = None
-    last_name = None
+    USERNAME_FIELD = 'email'  # Define el campo que se usará para iniciar sesión
+    REQUIRED_FIELDS = ['username']  # Campos requeridos al crear un usuario
 
-    # Método save para establecer el rol predeterminado al crear un nuevo usuario
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            self.rol = 'instructor'
-        super().save(*args, **kwargs)
+    def __str__(self):
+        return f"{self.username} - {self.email}"

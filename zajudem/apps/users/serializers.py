@@ -1,23 +1,47 @@
 from rest_framework import serializers
-from .models import Usuario
+from django.contrib.auth import get_user_model
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.contrib.auth import authenticate
 
-class UsuarioSerializer(serializers.ModelSerializer): # Creando un serializador para el modelo Usuario
+User = get_user_model()
+
+class UsuarioSerializer(serializers.ModelSerializer):
+
     class Meta:
-        model = Usuario
-        fields = ('id', 'username', 'email', 'telefono', 'password', 'rol', 'is_active', 'fecha_registro')
+        model = User
+        fields = ['id', 'username', 'email', 'telefono', 'rol', 'password']
         extra_kwargs = {
-            'password': {'write_only': True},  # Para que la contraseña no sea visible en la API
-            'rol': {'read_only': True},  # No permitir que se establezca un rol directamente
-            'is_active': {'read_only': True},  # No permitir que se establezca el estado directamente
-            'fecha_registro': {'read_only': True},  # No permitir que se establezca la fecha de registro directamente
+            'password': {'write_only': True}
         }
 
     def create(self, validated_data):
-        # Crear el usuario con contraseña encriptada
-        user = Usuario.objects.create_user(**validated_data)
+        user = User.objects.create_user(
+            username=validated_data['username'],
+            email=validated_data['email'],
+            telefono=validated_data.get('telefono'),
+            rol=validated_data.get('rol', 'instructor'),
+            password=validated_data['password']
+        )
         return user
+    
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    username_field = User.EMAIL_FIELD  # <- Esto indica que usaremos el campo email
 
-class UsuarioTokenSerializer(serializers.ModelSerializer): # Creando un serializador para los tokens del Usuario
-    class Meta:
-        model = Usuario
-        fields = ['username', 'email', 'first_name', 'last_name']
+    def validate(self, attrs):
+        # Sobrescribimos para usar 'email' y 'password'
+        email = attrs.get("email")
+        password = attrs.get("password")
+
+        user = authenticate(request=self.context.get('request'), email=email, password=password)
+
+        if not user:
+            raise serializers.ValidationError("Credenciales inválidas, verifica tu correo y contraseña.")
+
+        data = super().validate(attrs)
+        data['user'] = {
+            "id": user.id,
+            "username": user.username,
+            "email": user.email,
+            "rol": user.rol,
+        }
+        return data
