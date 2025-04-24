@@ -9,4 +9,4 @@ class Reporte(models.Model): # Creando el modelo Programacion
     fecha_reporte = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Reporte de {self.programacion.usuario.first_name} - {self.fecha_reporte}" # Retornando el nombre del usuario, el aula y la ficha
+        return f"Reporte de {self.programacion.usuario.username} - {self.fecha_reporte}" # Retornando el nombre del usuario, el aula y la ficha

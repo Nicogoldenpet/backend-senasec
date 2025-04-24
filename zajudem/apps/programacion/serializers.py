@@ -2,6 +2,10 @@ from rest_framework import serializers
 from .models import Programacion
 
 class ProgramacionSerializer(serializers.ModelSerializer): # Serializador para el modelo Programacion
+    usuario = serializers.StringRelatedField()  # Mostrar el nombre del usuario en lugar del ID
+    aula = serializers.StringRelatedField() # Mostrar el aula
+    ficha = serializers.StringRelatedField() # Mostrar el numero de la ficha
+    
     class Meta:
         model = Programacion
         fields = '__all__'  # Incluir todos los campos del modelo

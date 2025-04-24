@@ -17,3 +17,19 @@ class IsAdminUser(BasePermission):
             raise PermissionDenied(detail="No tiene permitido el acceso a esta área.")
 
         return True  # Permite el acceso solo si es admin
+    
+
+class IsOwner(BasePermission):
+    """Permiso personalizado para permitir acceso solo a las datos del usuario logueado."""
+
+    def has_object_permission(self, request, view, obj):
+
+        if not request.user.is_authenticated:
+            # permision es un excepcion que se lanza cuando para enviar un mcodigo de error 403
+            # en este caso se envia un mensaje de error perzonalizados 
+            raise PermissionDenied(detail="Debe iniciar sesión para acceder a esta área.")
+        
+        # Verifica si el usuario logueado es el propietario de los datos
+        if obj.usuario != request.user:
+            raise PermissionDenied(detail="No tiene acceso a esta sección.")
+        return True

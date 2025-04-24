@@ -29,4 +29,4 @@ class Usuario(AbstractUser):
     REQUIRED_FIELDS = ['username']  # Campos requeridos al crear un usuario
 
     def __str__(self):
-        return f"{self.username} - {self.email}"
+        return f"{self.username}"

@@ -13,4 +13,4 @@ class Programacion(models.Model): # Creando el modelo Programacion
     ultima_actualizacion = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.usuario.first_name} - {self.aula.aula} - {self.ficha.numero}" # Retornando el nombre del usuario, el aula y la ficha
+        return f"{self.usuario.username} - {self.aula.aula} - {self.ficha.numero}" # Retornando el nombre del usuario, el aula y la ficha
