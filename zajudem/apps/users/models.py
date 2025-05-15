@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from apps.fichas.models import Ficha # Importar el modelo Ficha
 
 class Usuario(AbstractUser):
     # Definición de las opciones de rol
@@ -12,6 +13,9 @@ class Usuario(AbstractUser):
     
     # Campo para almacenar el rol del usuario
     rol = models.CharField(max_length=20, choices=ROL_CHOICES, default='instructor') # user por default
+
+    # Campo de documento de identidad único
+    #documento = models.CharField(max_length=20, unique=True) # Documento de identidad único
     
     # Campo de correo electrónico único
     email = models.EmailField(unique=True)
@@ -29,4 +33,4 @@ class Usuario(AbstractUser):
     REQUIRED_FIELDS = ['username']  # Campos requeridos al crear un usuario
 
     def __str__(self):
-        return f"{self.username}"
+        return f"{self.username} - {self.documento}"

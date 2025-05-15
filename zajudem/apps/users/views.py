@@ -35,7 +35,7 @@ class UsuarioCreateView(generics.CreateAPIView): # Vista para crear un usuario
 class UsuarioViewSet(viewsets.ModelViewSet): # Vista para ver todos los usuarios
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
-    permission_classes = [IsAdminUser]
+    #permission_classes = [IsAdminUser]
 
 class Login(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer

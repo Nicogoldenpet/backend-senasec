@@ -21,6 +21,7 @@ from apps.users.views import Login
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('apps.users.urls')),
+    path('asignaciones/', include('apps.asignaciones.urls')), # URL para las asignaciones
     path('fichas/', include('apps.fichas.urls')), # URL para las fichas
     path('aulas/', include('apps.aulas.urls')), # URL para las aulas
     path('inventario/', include('apps.inventario.urls')), # URL para el inventario
