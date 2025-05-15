@@ -7,4 +7,4 @@ from permissions.permissions import IsAdminUser
 class InventarioViewSet(viewsets.ModelViewSet):
     queryset = Inventario.objects.all()  # Obtener todas las Inventario
     serializer_class = InventarioSerializer  # Usar el serializador InventarioSerializer
-    permission_classes = [IsAdminUser]
+    #permission_classes = [IsAdminUser] # Solo los usuarios administradores pueden acceder a esta vista
