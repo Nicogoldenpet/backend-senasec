@@ -7,7 +7,7 @@ class UsuarioAdmin(UserAdmin):
     model = Usuario
     
     # Campos que se mostrarán en la lista de usuarios en el panel de administración
-    list_display = ('username', 'email', 'telefono', 'rol', 'is_active', 'is_staff', 'fecha_registro')
+    list_display = ('username', 'email', 'documento', 'telefono', 'rol', 'is_active', 'is_staff', 'fecha_registro')
     
     # Campos por los que se puede buscar en el panel de administración
     search_fields = ('email', 'telefono')

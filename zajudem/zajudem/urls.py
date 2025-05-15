@@ -16,7 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from apps.users.views import Login
+from apps.users.views import Login, LogoutView
+from rest_framework_simplejwt.views import TokenRefreshView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,5 +29,6 @@ urlpatterns = [
     path('programacion/', include('apps.programacion.urls')), # URL para la programación
     path('reporte/', include('apps.reportes.urls')), # URL para los reportes
     path('login/', Login.as_view(), name='login'), # URL para pruebas de inicio de sesión
-    #path('logout/', Logout.as_view(), name='logout'), # URL para pruebas de cerrar sesión
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'), # Este es el path para refrescar el token
+    path('logout/', LogoutView.as_view(), name='logout'), # Este es el path para cerrar sesión
 ]

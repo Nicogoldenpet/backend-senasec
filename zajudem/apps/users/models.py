@@ -1,21 +1,20 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from apps.fichas.models import Ficha # Importar el modelo Ficha
 
 class Usuario(AbstractUser):
     # Definición de las opciones de rol
     ROL_CHOICES = [
-        ('administrador', 'Administrador'),
+        ('admin', 'Administrador'),
         ('instructor', 'Instructor'),
-        ('guardia', 'Guardia'),
-        ('limpieza', 'Limpieza'),
+        ('seguridad', 'Guardia'),
+        ('aseo', 'Limpieza'),
     ]
     
     # Campo para almacenar el rol del usuario
     rol = models.CharField(max_length=20, choices=ROL_CHOICES, default='instructor') # user por default
 
     # Campo de documento de identidad único
-    #documento = models.CharField(max_length=20, unique=True) # Documento de identidad único
+    documento = models.CharField(max_length=20, unique=True) # Documento de identidad único
     
     # Campo de correo electrónico único
     email = models.EmailField(unique=True)
@@ -29,7 +28,10 @@ class Usuario(AbstractUser):
     # Campo de fecha de registro
     fecha_registro = models.DateTimeField(auto_now=True) # Fecha de registro automática
 
-    USERNAME_FIELD = 'email'  # Define el campo que se usará para iniciar sesión
+    # Campo del face_token
+    face_token = models.CharField(max_length=255, blank=False, null=False)
+
+    USERNAME_FIELD = 'documento'  # Define el campo que se usará para iniciar sesión
     REQUIRED_FIELDS = ['username']  # Campos requeridos al crear un usuario
 
     def __str__(self):

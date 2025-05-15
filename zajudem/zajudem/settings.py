@@ -47,8 +47,9 @@ INSTALLED_APPS = [
     'apps.reportes', #Agrego la aplicación reportes
     'apps.asignaciones', #Agrego la aplicación asignaciones
     'rest_framework', #Agrego la aplicación rest_framework
-    'rest_framework.authtoken', #Agrego la aplicación rest_framework.authtoken para autenticación
+    #'rest_framework.authtoken', #Agrego la aplicación rest_framework.authtoken para autenticación
     'rest_framework_simplejwt', #Agrego la aplicación rest_framework_simplejwt para autenticación
+    'rest_framework_simplejwt.token_blacklist', #Agrego la aplicación rest_framework_simplejwt.token_blacklist para autenticación
 ]
 
 REST_FRAMEWORK = {
@@ -58,8 +59,10 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),  # Token de acceso dura 30 min
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),  # Token de refresco dura 7 días
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),  # Token de acceso dura 30 min
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),  # Token de refresco dura 7 días
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
 }
 
 # El modelo de usuario personalizado para que funcione mi app
