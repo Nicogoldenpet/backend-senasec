@@ -7,4 +7,4 @@ from permissions.permissions import IsAdminUser
 class AulaViewSet(viewsets.ModelViewSet):
     queryset = Aula.objects.all()  # Obtener todas las Aulas
     serializer_class = AulaSerializer  # Usar el serializador AulaSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser] # Solo administradores pueden acceder a esta vista
