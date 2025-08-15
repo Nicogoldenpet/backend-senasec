@@ -80,14 +80,14 @@ class UsuarioSerializer(serializers.ModelSerializer):
     
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
-    username_field = 'documento'  # <- Esto indica que usaremos el campo documento para la autenticación
+    username_field = 'email'  # <- Esto indica que usaremos el campo email para la autenticación
 
     def validate(self, attrs):
-        # Sobrescribimos para usar 'documento' y 'password'
-        documento = attrs.get("documento")
+        # Sobrescribimos para usar 'email' y 'password'
+        email = attrs.get("email")
         password = attrs.get("password")
 
-        user = authenticate(request=self.context.get('request'), documento=documento, password=password)
+        user = authenticate(request=self.context.get('request'), email=email, password=password)
 
         if not user:
             raise serializers.ValidationError("Credenciales inválidas, verifica tu correo y contraseña.")
