@@ -1,17 +1,66 @@
 from rest_framework import serializers
 from .models import Programacion
+from apps.users.models import Usuario
+from apps.ambiente.models import Ambiente
+from apps.fichas.models import Ficha
+from apps.users.serializers import UsuarioSerializer
+from apps.ambiente.serializers import AmbienteSerializer
+from apps.fichas.serializers import FichaSerializer
 
 class ProgramacionSerializer(serializers.ModelSerializer): # Serializador para el modelo Programacion
+    # Lectura (mostrar datos anidados)
+    usuario = UsuarioSerializer(read_only=True)
+    ambiente = AmbienteSerializer(read_only=True)
+    ficha = FichaSerializer(read_only=True)
+
+    # Escritura (aceptar IDs)
+    usuario_id = serializers.PrimaryKeyRelatedField(queryset=Usuario.objects.all(), write_only=True)
+    ambiente_id = serializers.PrimaryKeyRelatedField(queryset=Ambiente.objects.all(), write_only=True)
+    ficha_id = serializers.PrimaryKeyRelatedField(queryset=Ficha.objects.all(), write_only=True)
+
     class Meta:
         model = Programacion
-        fields = '__all__'  # Incluir todos los campos del modelo
+        fields = [
+            'id',
+            'usuario', 'usuario_id',
+            'ambiente', 'ambiente_id',
+            'ficha', 'ficha_id',
+            'dia',
+            'hora_inicio',
+            'hora_fin'
+        ]
+
+    def create(self, validated_data):
+        # Extraemos los objetos de los campos de escritura
+        usuario = validated_data.pop('usuario_id')
+        ambiente = validated_data.pop('ambiente_id')
+        ficha = validated_data.pop('ficha_id')
+
+        return Programacion.objects.create(
+            usuario=usuario,
+            ambiente=ambiente,
+            ficha=ficha,
+            **validated_data
+        )
+    
+    def update(self, instance, validated_data):
+        instance.usuario = validated_data.pop('usuario_id', instance.usuario)
+        instance.ambiente = validated_data.pop('ambiente_id', instance.ambiente)
+        instance.ficha = validated_data.pop('ficha_id', instance.ficha)
+
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+
+        instance.save()
+        return instance
+    
 
     def validate(self, data):
         """
         Validar que no haya conflictos de programación en el mismo ambiente y hora.
         """
 
-        ambiente = data['ambiente']
+        ambiente = data.get('ambiente_id') or self.instance.ambiente
         dia = data['dia']
         hora_inicio = data['hora_inicio']
         hora_fin = data['hora_fin']
@@ -30,35 +79,3 @@ class ProgramacionSerializer(serializers.ModelSerializer): # Serializador para e
             raise serializers.ValidationError("Ya existe una programación en este ambiente que se cruza con este horario.")
         
         return data
-    
-    # def create(self, validated_data):
-    #     """
-    #     Crear una programación con la asignación correspondiente.
-    #     """
-    #     usuario = validated_data.pop('usuario')
-    #     ficha = validated_data.pop('ficha')
-
-    #     # Buscar o crear la asignación correspondiente
-    #     try:
-    #         print("Buscando asignación...")  # Depuración
-    #         asignacion = Asignacion.objects.get(usuario=usuario, ficha=ficha)
-    #     except Asignacion.DoesNotExist:
-    #         print("Asignación no encontrada.")
-    #         raise serializers.ValidationError("La ficha seleccionada no está asignada al usuario.")
-
-    #     # Crear la programación con la asignación encontrada
-    #     programacion = Programacion.objects.create(asignacion=asignacion, ficha=ficha, **validated_data)
-    #     return programacion
-    
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     request = self.context.get('request')  # Obtener la solicitud del contexto
-    #     if request and request.data.get('usuario'):  # Verificar si se envió un usuario
-    #         try:
-    #             usuario_id = int(request.data.get('usuario'))
-    #             queryset = Ficha.objects.filter(asignaciones__usuario_id=usuario_id)
-    #             print(f"Fichas disponibles para el usuario {usuario_id}: {queryset}")  # Depuración
-    #             self.fields['ficha'].queryset = queryset
-    #         except ValueError:
-    #             print("Usuario no válido")  # Depuración
-    #             self.fields['ficha'].queryset = Ficha.objects.none()  # Si el usuario no es válido, no mostrar fichas

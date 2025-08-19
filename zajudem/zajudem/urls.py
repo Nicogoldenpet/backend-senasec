@@ -24,6 +24,7 @@ urlpatterns = [
     path('users/', include('apps.users.urls')),
     path('fichas/', include('apps.fichas.urls')), # URL para las fichas
     path('ambiente/', include('apps.ambiente.urls')), # URL para los ambientes
+    path('novedades/', include('apps.novedades.urls')), # URL para las novedades
     path('equipos/', include('apps.equipos.urls')), # URL para los equipos
     path('programaciones/', include('apps.programaciones.urls')), # URL para la programación
     path('reportes/', include('apps.reportes.urls')), # URL para los reportes

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'apps.users', #Agrego la aplicación users
     'apps.fichas', #Agrego la aplicación fichas
+    'apps.novedades', #Agrego la aplicación novedades
     'apps.equipos', #Agrego la aplicación equipos
     'apps.ambiente', #Agrego la aplicación ambiente
     'apps.programaciones', #Agrego la aplicación programacion

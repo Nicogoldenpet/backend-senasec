@@ -10,7 +10,6 @@ class Ambiente(models.Model):
     ]
 
     nombre = models.CharField(max_length=20, unique=True, blank=False, null=False)  # Nombre del ambiente
-    novedades = models.TextField(blank=True, null=True)  # Novedades del ambiente
     estado = models.CharField(max_length=15, choices=ESTADOS, default='disponible')  # Estado del ambiente
     ultima_actualizacion = models.DateField(auto_now=True)  # Fecha de la última actualización del estado del ambiente
 
