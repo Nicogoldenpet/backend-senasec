@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('apps.users.urls')),
     path('fichas/', include('apps.fichas.urls')), # URL para las fichas
-    path('ambiente/', include('apps.ambiente.urls')), # URL para los ambientes
+    path('ambiente/', include('apps.ambiente.urls')), # URL para las ambientes
     path('novedades/', include('apps.novedades.urls')), # URL para las novedades
     path('equipos/', include('apps.equipos.urls')), # URL para los equipos
     path('programaciones/', include('apps.programaciones.urls')), # URL para la programación
@@ -31,4 +31,5 @@ urlpatterns = [
     path('login/', Login.as_view(), name='login'), # URL para pruebas de inicio de sesión
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'), # Este es el path para refrescar el token
     path('logout/', LogoutView.as_view(), name='logout'), # Este es el path para cerrar sesión
+    path('', include('apps.users.urls'))
 ]
