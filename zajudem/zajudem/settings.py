@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-v3jjuui#484f7(wtl(0((d)ci*0wi)2fc=tc9b+7+f7s@1kvz%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://backend-senasec-usyv.onrender.com/']
+ALLOWED_HOSTS = ['https://backend-senasec-usyv.onrender.com/', "backend-senasec-usyv.onrender.com"]
 
 
 # Application definition
