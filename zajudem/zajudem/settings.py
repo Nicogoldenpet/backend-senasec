@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-v3jjuui#484f7(wtl(0((d)ci*0wi)2fc=tc9b+7+f7s@1kvz%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://backend-senasec-usyv.onrender.com/']
 
 
 # Application definition
@@ -90,9 +90,6 @@ CORS_ALLOW_METHODS = [
     "DELETE",
     "OPTIONS",
 ]
-
-
-ALLOWED_HOSTS = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
