@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+from decouple import config, Csv
 from pathlib import Path
 from datetime import timedelta
 
@@ -21,12 +22,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-v3jjuui#484f7(wtl(0((d)ci*0wi)2fc=tc9b+7+f7s@1kvz%'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['https://backend-senasec-usyv.onrender.com/', "backend-senasec-usyv.onrender.com"]
+
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 
 # Application definition
@@ -126,11 +128,11 @@ WSGI_APPLICATION = 'zajudem.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql', #Conexión al gestor de base de datos en este caso postgresql
-        'NAME': 'neondb', #Nombre de la base de datos
-        'USER': 'neondb_owner', #Usuario de la base de datos
-        'PASSWORD': 'npg_V9FQPEhJ6mWa', #Contraseña de la base de datos
-        'HOST': 'ep-square-bonus-ad785uf3-pooler.c-2.us-east-1.aws.neon.tech', #Host de la base de datos
-        'PORT': '5432', #Puerto por defecto para establecer la conexión
+        'NAME': config('DB_NAME'), #Nombre de la base de datos
+        'USER': config('DB_USER'), #Usuario de la base de datos
+        'PASSWORD': config('DB_PASSWORD'), #Contraseña de la base de datos
+        'HOST': config('DB_HOST'), #Host de la base de datos
+        'PORT': config('DB_PORT', cast=int), #Puerto por defecto para establecer la conexión
     }
 }
 
