@@ -84,6 +84,7 @@ MIDDLEWARE = [
 # Para permitir todo durante desarrollo
 CORS_ALLOWED_ORIGINS = [
     "https://sb1-jrlgmdcl-1.vercel.app/",  # Aquí colocas tu URL de Vercel
+    "https://senasec.onrender.com/",
 ]
 
 CORS_ALLOW_METHODS = [
