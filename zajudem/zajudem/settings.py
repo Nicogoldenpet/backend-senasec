@@ -82,7 +82,9 @@ MIDDLEWARE = [
 ]
 
 # Para permitir todo durante desarrollo
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "https://sb1-jrlgmdcl-1.vercel.app/",  # Aquí colocas tu URL de Vercel
+]
 
 CORS_ALLOW_METHODS = [
     "GET",
